@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Show Posts</title>
+    <style>
+        .container {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        .post-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .blog {
+            background-color: #298a8d;
+            border: 1px solid #d1d1d1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .post-title {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .post-user {
+            color: #641783;
+            text-decoration: none;
+        }
+
+        .post-description {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .post-date {
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <body>
+    <div class="container">
+        <form method="POST" action=" " class="post-form">
+            {% csrf_token %} {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Post">
+        </form>
+    </div>
+    <div class="container">
+        {% for post in allposts %}
+            {% if post.user_id in friends_id or post.user_id in self_id %}
+                <div class="blog">
+                    <div class="post-header">
+                        <a class="post-user" href="{% url 'welcome:userprofile' post.user.id %}">
+                            {{ post.user.username }}</a>
+                        <span class="post-date">{{ post.date_posted }}</span>
+                    </div>
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <p class="post-description">{{ post.description }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    </body>
+{% endblock %}

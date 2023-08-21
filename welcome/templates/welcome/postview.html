@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>show post</title>
+
+     <style>
+.blog {
+  background-color: #298a8d;
+  width: 1000px;
+  border: 15px solid lightblue;
+  padding: 50px;
+  margin: 20px;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+    <body>
+
+
+    <div class="container">
+        <form>
+            {% csrf_token %}
+
+            {% for post in allposts %}
+            <div class="blog">
+                <a href="{% url 'welcome:userprofile' post.user.id %}"><h4>{{ post.user.username }}</h4></a>
+                <h4>{{ post.title }}</h4>
+                <h3>{{ post.description }}</h3>
+                <h6>{{ post.date_posted }}</h6>
+            </div>
+            {% endfor %}
+
+        </form>
+    </div>
+    </body>
+
+{% endblock %}

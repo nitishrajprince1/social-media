@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Add friends</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Add friends</h1>
+        <div class="container">
+            <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+            <h4>Add Friends here</h4>
+            {% csrf_token %}
+            <form>
+                {% for user in context %}
+                    {% if user == request.user %}
+                    {% else %}
+                        <br>
+                        {{ user.username|upper }}<br>
+                            <a id="add" href="{% url 'welcome:send_friend_request'  userid=user.id %}" ><input type="button" value="Send Request" ></a> <br>
+                            <a id="remove" href="{% url 'welcome:remove_friend'  userid=user.id %}"><input type="button" value='remove Friend'></a><br><br>
+
+                    {% endif %}
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Friends List</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container friends-list">
+        {% for friend in friendlist %}
+            <div class="friend-card">
+                {% if friend.sender == request.user %}
+                    <div class="friend-details">
+                        <h2>{{ friend.receiver.first_name }} {{ friend.receiver.last_name }}</h2>
+                        <span class="friend-count">{{ friend.receiver.count }}</span>
+                        <h3><a href="{% url 'welcome:userprofile' friend.receiver_id %}">{{ friend.receiver }}</a></h3>
+                        <a class="remove-friend-link" href="{% url 'welcome:remove_friend' userid=friend.receiver_id %}">
+                            <button class="btn btn-danger">Remove Friend</button>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="friend-details">
+                        <h2>{{ friend.sender.first_name }} {{ friend.sender.last_name }}</h2>
+                        <h3><a href="{% url 'welcome:userprofile' friend.sender_id %}">{{ friend.sender }}</a></h3>
+                        <a class="remove-friend-link" href="{% url 'welcome:remove_friend' userid=friend.sender_id %}">
+                            <button class="btn btn-danger">Remove Friend</button>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

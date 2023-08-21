@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Profile View</title>
+    <style>
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            margin-top: 10px;
+        }
+        a {
+            text-decoration: none;
+            margin-top: 20px;
+        }
+        input[type="button"] {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>My Profile</h1>
+        {% if profile.dp %}
+            <img alt="Profile Picture" src="{{ profile.dp.url }}"
+              width="300" height="300">
+        {% endif %}
+        <h3>Username: {{ profile.user }}</h3>
+        <h3>Name: {{ user.first_name }} {{ user.last_name }}</h3>
+        <h3>Email: {{ user.email }}</h3>
+        <h3>Contact: {{ profile.contact }}</h3>
+        <h3>DOB: {{ profile.dob }}</h3>
+        <h3>Gender: {{ profile.gender }}</h3>
+        <h3>Bio: {{ profile.bio }}</h3>
+        <br>
+        <p>Do you want to update your profile?
+            <a href="/profileupdate"><input type="button" value="Update Profile"></a></p>
+        <p>Do you want to see your friends?
+            <a href="/friendlist"><input type="button" value="See Friend List"></a></p>
+    </div>
+{% endblock %}

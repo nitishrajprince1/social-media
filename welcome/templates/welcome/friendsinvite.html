@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+    <title>Friend Invitations</title>
+    <link rel="stylesheet" href="{% static 'css/friend-invites.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="friend-invites">
+            {% for f in friend %}
+                {% if f.sender != request.user %}
+                    <div class="friend-card">
+                        <div class="friend-details">
+                            <h2>{{ f.sender.first_name.capitalize }} {{ f.sender.last_name.capitalize }}</h2>
+                            <h4><a href="{% url 'welcome:userprofile' f.sender_id %}">{{ f.sender.username }}</a></h4>
+                        </div>
+                        <div class="friend-actions">
+                            <a href="{% url 'welcome:accept_friend' userid=f.sender_id %}">
+                                <button class="btn btn-accept">Accept Friend</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Create a new account</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+<h2>Create A New Account</h2>
+{% block content %}
+    <form method="POST" class="form-group" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+    <a href="/signin"><input type="button" value="already a user"></a>
+{% endblock %}
+</div>
+{% endblock %}
